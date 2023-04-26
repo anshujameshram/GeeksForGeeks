@@ -1,0 +1,87 @@
+Given two sorted arrays A and B of size M and N respectively. Each array may have some elements in common with the other array. 
+Find the maximum sum of a path from the beginning of any array to the end of any of the two arrays. We can switch from one array to another array
+only at the common elements.Both the arrays are sorted.
+Note: Only one repeated value is considered in the valid path sum.
+
+
+Example 1:
+
+Input:
+M = 5, N = 4
+A[] = {2,3,7,10,12}
+B[] = {1,5,7,8}
+Output: 35
+Explanation: The path will be 1+5+7+10+12
+= 35.
+
+Example 2:
+
+Input:
+M = 3, N = 3
+A[] = {1,2,3}
+B[] = {3,4,5}
+Output: 15
+Explanation: The path will be 1+2+3+4+5=15.
+
+Your Task:
+You don't need to read input or print anything. Complete the function max_path_sum() which takes the two arrays A and B 
+along with their sizes M and N as input parameters. It returns the maximum path sum.
+
+------solution-------------
+import java.util.Scanner;
+
+public class max_sum_path_two_array {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter size of n and m:");
+		int n = sc.nextInt();
+		int m = sc.nextInt();
+
+		int[] a1 = new int[n];
+		int[] a2 = new int[m];
+
+		System.out.println("Enter elements of a1:");
+		for (int i = 0; i < n; i++) {
+			a1[i] = sc.nextInt();
+		}
+		System.out.println("Enter elements of a2:");
+		for (int i = 0; i < m; i++) {
+			a2[i] = sc.nextInt();
+		}
+
+		// find common elements
+		int co_ele = 0, index = 0, index1 = 0;
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < m; j++) {
+				if (a1[i] == a2[j]) {
+					co_ele = a1[i];
+					index1 = i;
+					index = j;
+					break;
+				}
+			}
+		}
+		
+		int sum1 = 0, sum2 = 0;
+		if (n > m) {
+			for (int i = index + 1; i < n; i++) {
+				sum2 = sum2 + a1[i];
+			}
+			for (int i = 0; i <= index1; i++) {
+				sum1 = sum1 + a2[i];
+			}
+		} else if (n <= m) {
+			for (int i = 0; i <= index1; i++) {
+				sum1 = sum1 + a1[i];
+			}
+			for (int i = index + 1; i < m; i++) {
+				sum2 = sum2 + a2[i];
+			}
+		}
+		
+		System.out.println(sum1 + sum2);
+
+	}
+
+}
